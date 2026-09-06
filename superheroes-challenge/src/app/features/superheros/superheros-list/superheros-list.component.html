@@ -1,0 +1,11 @@
+<p>Superheroes</p>
+
+@for (superhero of superheroStore.superheros(); track superhero.id) {
+<div>
+  <h2>{{ superhero.name }}</h2>
+
+  <img [src]="superhero.image" [alt]="superhero.name" />
+
+  <p>{{ superhero.description }}</p>
+</div>
+}
