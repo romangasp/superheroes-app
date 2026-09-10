@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SuperherosListComponent } from './features/superheros/superheros-list/superheros-list.component';
+import { SuperherosPageComponent } from './features/superheros/pages/superheros-page/superheros-page.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SuperherosListComponent],
+  imports: [RouterOutlet, SuperherosPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

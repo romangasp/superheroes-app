@@ -5,10 +5,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { superheroStore } from '../store/superhero.store';
-
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-superheros-list',
-  imports: [],
+  imports: [MatListModule, MatButtonModule, MatIconModule],
   standalone: true,
   templateUrl: './superheros-list.component.html',
   styleUrl: './superheros-list.component.scss',
@@ -18,11 +20,9 @@ export class SuperherosListComponent implements OnInit {
   public readonly superheroStore = inject(superheroStore);
   ngOnInit(): void {
     this.superheroStore.loadSuperheros();
-    // const response = this.superheroService.getSuperheroes().subscribe({
-    //   next: (data) => {
-    //     console.log('data', data);
-    //   },
-    // });
-    // console.log('responselist', response);
+  }
+
+  deleteSuperhero(id: string): void {
+    this.superheroStore.deleteSuperhero(id);
   }
 }

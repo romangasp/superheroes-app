@@ -1,0 +1,20 @@
+.superhero-title {
+  color: white;
+}
+mat-list-item:hover{
+  background-color:rgb(55, 240, 215);
+  cursor:pointer;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  font-size: 20px;
+}
+
+.icons-container {
+  padding: 15px
+}
