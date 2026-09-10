@@ -1,11 +1,31 @@
-<p>Superheroes</p>
-
-@for (superhero of superheroStore.superheros(); track superhero.id) {
-<div>
-  <h2>{{ superhero.name }}</h2>
-
-  <img [src]="superhero.image" [alt]="superhero.name" />
-
-  <p>{{ superhero.description }}</p>
+<div class="superhero-title">
+  <h2>Superheroes</h2>
 </div>
-}
+
+<mat-list>
+  @for (superhero of superheroStore.superheros(); track superhero.id) {
+    <mat-list-item>
+      <img
+        matListItemAvatar
+        src="https://material.angular.dev/assets/img/examples/shiba1.jpg"
+        alt="..."
+      />
+      <h3 matListItemTitle>{{ superhero.name }}</h3>
+      <p matListItemLine>
+        <span>message</span>
+      </p>
+      <div class="icons-container" matListItemMeta>
+      <button mat-icon-button class="edit-button">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        class="delete-button"
+        (click)="deleteSuperhero(superhero.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      </div>
+    </mat-list-item>
+  }
+</mat-list>
