@@ -3,7 +3,7 @@
 </div>
 
 <mat-list>
-  @for (superhero of superheroStore.superheros(); track superhero.id) {
+  @for (superhero of superherosList(); track superhero.id) {
     <mat-list-item>
       <img
         matListItemAvatar
@@ -21,7 +21,7 @@
       <button
         mat-icon-button
         class="delete-button"
-        (click)="deleteSuperhero(superhero.id)"
+        (click)="onDeleteSuperhero(superhero.id)"
       >
         <mat-icon>delete</mat-icon>
       </button>

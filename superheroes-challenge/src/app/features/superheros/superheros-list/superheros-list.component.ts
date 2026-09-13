@@ -1,13 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
-  OnInit,
+  input,
+  output,
 } from '@angular/core';
-import { superheroStore } from '../store/superhero.store';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Superhero } from '../models/superhero.model';
 @Component({
   selector: 'app-superheros-list',
   imports: [MatListModule, MatButtonModule, MatIconModule],
@@ -16,13 +16,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './superheros-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SuperherosListComponent implements OnInit {
-  public readonly superheroStore = inject(superheroStore);
-  ngOnInit(): void {
-    this.superheroStore.loadSuperheros();
-  }
+export class SuperherosListComponent {
+  superherosList = input.required<Superhero[]>();
+  deleteAction = output<string>();
 
-  deleteSuperhero(id: string): void {
-    this.superheroStore.deleteSuperhero(id);
+  onDeleteSuperhero(id: string) {
+    this.deleteAction.emit(id);
   }
 }

@@ -1,0 +1,36 @@
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px 0 20px;
+  background-color: #416285;
+  
+  h4 {
+    margin: 0;
+    font-size: 14px;
+    color: rgb(2, 238, 255);
+  }
+
+  .close-button {
+    margin-left: auto;
+    color: rgb(2, 238, 255);
+  }
+}
+
+.dialog-body {
+  padding: 20px 24px;
+  min-width: 320px;
+  background-color: #416285;
+  color: rgb(2, 238, 255);
+}
+
+.dialog-footer {
+  padding: 12px 24px 16px 24px;
+  gap: 8px;
+  background-color: #416285;
+  
+
+  button {
+    color: rgb(2, 238, 255);
+  }
+}
