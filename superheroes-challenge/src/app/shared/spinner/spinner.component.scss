@@ -1,0 +1,9 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+.mat-mdc-progress-spinner {
+    --mdc-circular-progress-active-indicator-color: rgb(55, 240, 215);
+  }
+}
