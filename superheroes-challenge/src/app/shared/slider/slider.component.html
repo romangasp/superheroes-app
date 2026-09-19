@@ -1,0 +1,7 @@
+<div class="slider-label-container">
+  <label [for]="name()" class="slider-label">{{ label() }}</label>
+  <label [for]="name()" class="slider-value">{{ value() }}</label>
+</div>
+<mat-slider class="slider" [max]="100" [min]="0" [discrete]="thumbLabel()">
+  <input matSliderThumb [id]="name()" [name]="name()" [formControl]="control()" #slider />
+</mat-slider>

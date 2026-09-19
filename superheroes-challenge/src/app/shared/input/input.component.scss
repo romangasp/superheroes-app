@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+:host {
+  /* Reduce el tamaño del input. 
+     Acepta valores desde 0 (normal) hasta -5 (el más compacto) */
+  @include mat.form-field-density(-4);
+}
+
+:host ::ng-deep .mat-mdc-form-field {
+  --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.4);
+
+  --mdc-outlined-text-field-hover-outline-color: #ffffff;
+
+  --mdc-outlined-text-field-focus-outline-color: #03ffea;
+
+  --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.6);
+
+  --mdc-outlined-text-field-hover-label-text-color: #ffffff;
+
+  --mdc-outlined-text-field-focus-label-text-color: #03ffea;
+}
+:host ::ng-deep .mat-mdc-form-field input::placeholder {
+  color: #ffffff !important;
+}
+
+mat-form-field {
+  input {
+    color: #ffffff;
+  }
+}
