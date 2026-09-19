@@ -1,0 +1,41 @@
+:host ::ng-deep mat-slider {
+  --mdc-slider-active-track-shape: 10px;
+  --mdc-slider-inactive-track-shape: 10px;
+
+  --mdc-slider-active-track-height: 10px;
+  --mdc-slider-inactive-track-height: 10px;
+
+  --mdc-slider-active-track-shape: 0px;
+  --mdc-slider-inactive-track-shape: 0px;
+
+  --mdc-slider-handle-shape: 0px;
+
+  --mdc-slider-hover-handle-shape: 0px;
+  --mdc-slider-focus-handle-shape: 0px;
+
+  --mdc-slider-handle-width: 12px;
+  --mdc-slider-handle-height: 12px;
+
+  --mdc-slider-handle-color: #b8b7b7;
+  --mdc-slider-focus-handle-color: #b8b7b7;
+  --mdc-slider-hover-handle-color: #b8b7b7;
+}
+
+:host ::ng-deep mat-slider .mdc-slider__track--active_fill {
+  background: linear-gradient(90deg, #4caf50 0%, #ffeb3b 50%, #f44336 100%) !important;
+  border: none !important;
+}
+
+:host ::ng-deep mat-slider .mdc-slider__track--inactive {
+  background-color: #2a2050 !important;
+  opacity: 1 !important;
+}
+
+.slider-label-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider {
+  min-width: 95%;
+}

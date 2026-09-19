@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -24,13 +18,7 @@ export interface GenericDialogData {
 
 @Component({
   selector: 'app-dialog',
-  imports: [
-    MatDialogTitle,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogContent,
-    MatDialogActions,
-  ],
+  imports: [MatDialogTitle, MatButtonModule, MatIconModule, MatDialogContent, MatDialogActions],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,7 +32,7 @@ export class DialogComponent {
   showConfirmButton = input<boolean>(this.data.showConfirmButton ?? true);
 
   confirm = output<void>();
-  cancel = output<void>();
+  oncancel = output<void>();
 
   onConfirm(): void {
     this.confirm.emit();
@@ -52,7 +40,7 @@ export class DialogComponent {
   }
 
   onClose(): void {
-    this.cancel.emit();
+    this.oncancel.emit();
     this.dialogRef.close(false);
   }
 }
