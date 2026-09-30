@@ -1,0 +1,52 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+
+  .form-title {
+    margin-bottom: 10px;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #ffffff;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+
+    .full-width {
+      width: 100%;
+    }
+  }
+
+  .form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    .cancel-button {
+      color: rgb(13, 241, 211);
+      border-color: rgb(13, 241, 211);
+    }
+    .submit-button {
+      background-color: rgb(13, 241, 211);
+      color: #1e1e2f;
+    }
+    .button-disabled {
+      background-color: #ccc;
+      color: #666;
+      cursor: not-allowed;
+      border-color: #ccc
+
+    }
+  }
+}

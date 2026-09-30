@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,8 +14,13 @@ import { Superhero } from '../models/superhero.model';
 export class SuperherosListComponent {
   superherosList = input.required<Superhero[]>();
   deleteAction = output<string>();
+  editAction = output<string>();
 
   onDeleteSuperhero(id: string) {
     this.deleteAction.emit(id);
+  }
+
+  onEditAction(id: string) {
+    this.editAction.emit(id);
   }
 }

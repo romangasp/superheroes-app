@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Superhero } from '../models/superhero.model';
@@ -17,6 +17,18 @@ export class SuperheroService {
 
   getSuperheroes(): Observable<Superhero[]> {
     return this.http.get<Superhero[]>(this.API_ULR);
+  }
+  getSupeheroById(id: string): Observable<Superhero> {
+    return this.http.get<Superhero>(`${this.API_ULR}/${id}`);
+  }
+  /*eslint-disable*/ //@ts-ignore
+  createSuperhero(superhero: Superhero): Observable<Superhero> {
+    console.log(superhero, 'superhero service');
+    return this.http.post<Superhero>(`${this.API_ULR}`, superhero, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
   }
 
   deleteSuperhero(id: string): Observable<DeleteSuperheroResponse> {

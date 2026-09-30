@@ -1,9 +1,35 @@
 <div class="first-column"></div>
 <div class="list-container">
-  <app-superheros-list class="delete-dialog"
-    [superherosList]="superheroStore.superheros()"
-    (deleteAction)="openDeleteDialog($event)"
-  ></app-superheros-list>
+
+  <div class="superhero-header">
+    <h2>Superheroes</h2>
+    <button mat-icon-button (click)="addHero()" [disabled]="this.isEditHero()"
+    [class.add-disabled]="this.isEditHero()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+  @if(superheroStore.loading()) {
+    <div class="page-spinner">
+      <app-spinner></app-spinner>
+      <p>Cargando Superheroes...</p>
+    </div>
+  } @else {
+    <app-superheros-list
+      class="delete-dialog"
+      [superherosList]="superheroStore.superheros()"
+      (deleteAction)="openDeleteDialog($event)"
+      (editAction)="openEditForm($event)"
+    ></app-superheros-list>
+  }
 </div>
 
-<div class="edit-column"></div>
+<div class="edit-column">
+  @if(isAddHero() || isEditHero()){
+    <app-form
+      [config]="formConfig"
+      [data]="superheroData()"
+      (formSubmit)="handleFormSubmit($event)"
+      (formCancel)="handleFormCancel()"
+    />
+  }
+</div>
