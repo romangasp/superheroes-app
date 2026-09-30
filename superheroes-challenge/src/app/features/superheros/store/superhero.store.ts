@@ -1,7 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Superhero } from '../models/superhero.model';
 import { SuperheroService } from '../services/superhero.service';
-import { finalize } from 'rxjs';
+import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class superheroStore {
@@ -24,6 +25,37 @@ export class superheroStore {
         this.loading.set(false);
       },
     });
+  }
+
+  getSuperhero(id: string): Observable<Superhero> {
+    this.loading.set(true);
+    this.error.set(null);
+    return this.superheroService.getSupeheroById(id).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.error.set(error.error.message ?? 'No se pudo crear el superhéroe');
+
+        return throwError(() => error);
+      }),
+      finalize(() => this.loading.set(false)),
+    );
+  }
+
+  createSuperhero(superhero: Superhero): Observable<Superhero> {
+    console.log('superhero', superhero);
+    this.loading.set(true);
+    this.error.set(null);
+
+    return this.superheroService.createSuperhero(superhero).pipe(
+      tap((response) => {
+        this.superheros.update((superheros) => [...superheros, response]);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.error.set(error.error.message ?? 'No se pudo crear el superhéroe');
+
+        return throwError(() => error);
+      }),
+      finalize(() => this.loading.set(false)),
+    );
   }
 
   deleteSuperhero(id: string): void {

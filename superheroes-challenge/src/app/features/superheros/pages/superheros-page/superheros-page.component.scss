@@ -1,10 +1,47 @@
-.first-column, .edit-column {
+.superhero-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    color: white;
+  }
+  .add-disabled {
+    color: #666;
+    cursor: not-allowed;
+  }
+}
+
+h2 {
+  color: white;
+}
+.first-column,
+.edit-column {
   min-width: 25%;
-  border: solid 2px aquamarine;
+  border: solid 2px rgb(55, 240, 215);
+  background-color: #1e1e2f;
   border-radius: 20px;
-  height: 73vw;
+  height: 100%;
+  display: flex;
+  position: relative;
+  background-color: #1e1e2f;
+  flex-direction: column;
 }
 
 .list-container {
   min-width: 50%;
+}
+
+.page-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  height: 200px;
+  p {
+    color: white;
+    margin: 0;
+    text-align: center;
+  }
 }

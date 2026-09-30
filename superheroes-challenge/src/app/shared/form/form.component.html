@@ -1,0 +1,42 @@
+<div class="form-container">
+  <div class="form-title">
+    <h2>{{ config().title }}</h2>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+    @for (field of config().fields; track field.name) {
+      @if (field.type === 'slider') {
+        <app-slider
+          class="full-width"
+          [label]="field.label"
+          [name]="field.name"
+          [value]="getFormControl(field.name).value"
+          [control]="getFormControl(field.name)"
+        ></app-slider>
+      } @else {
+        <app-input
+          [label]="field.label"
+          [control]="getFormControl(field.name)"
+          [type]="field.type"
+          [placeholder]="field.placeholder"
+        ></app-input>
+      }
+    }
+
+    <footer class="form-buttons">
+      <button class="cancel-button" type="button" mat-stroked-button (click)="onCancel()">
+        {{ config().cancelText || 'Cancelar' }}
+      </button>
+
+      <button
+        class="submit-button"
+        type="submit"
+        mat-flat-button
+        color="primary"
+        [class.button-disabled]="form.invalid"
+        [disabled]="form.invalid"
+      >
+        {{ config().submitText || 'Guardar' }}
+      </button>
+    </footer>
+  </form>
+</div>
