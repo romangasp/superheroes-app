@@ -5,5 +5,7 @@
     [type]="type() || 'text'"
     [formControl]="control()"
     [placeholder]="placeholder() || ''"
+    (input)="onSearch($event)"
+    autocomplete="off"
   />
 </mat-form-field>
