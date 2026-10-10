@@ -15,9 +15,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FORM_CONFIG } from './form-config/superhero-form.config';
 import { FormComponent } from '../../../../shared/form/form.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Superhero } from '../../models/superhero.model';
-//import { Superhero } from '../../models/superhero.model';
+import { EmptyMessageComponent } from '../../../../shared/empty-message/empty-message.component';
+import { InputComponent } from '../../../../shared/input/input.component';
+import { FormControl } from '@angular/forms';
+import { AlertService } from '../../../../core/services/alert-service/alert.service';
+
 @Component({
   selector: 'app-superheros-page',
   imports: [
@@ -26,6 +29,8 @@ import { Superhero } from '../../models/superhero.model';
     MatButtonModule,
     MatIconModule,
     FormComponent,
+    EmptyMessageComponent,
+    InputComponent,
   ],
   templateUrl: './superheros-page.component.html',
   styleUrl: './superheros-page.component.scss',
@@ -34,13 +39,14 @@ import { Superhero } from '../../models/superhero.model';
 export class SuperherosPageComponent implements OnInit {
   public readonly superheroStore = inject(superheroStore);
   private readonly dialog = inject(MatDialog);
-  private readonly snackbar = inject(MatSnackBar);
+  private readonly alertService = inject(AlertService);
   readonly formConfig = FORM_CONFIG;
   isAddHero = signal<boolean>(false);
   isEditHero = signal<boolean>(false);
   heroId = signal<string>('');
   /*eslint-disable*/ //@ts-ignore
   superheroData = signal<Superhero>();
+  readonly searchControl = new FormControl('');
 
   @ViewChild(FormComponent) formComponent!: FormComponent;
 
@@ -60,7 +66,15 @@ export class SuperherosPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.superheroStore.deleteSuperhero(id);
+        this.superheroStore.deleteSuperhero(id).subscribe({
+          next: () => {
+            this.alertService.success('Superhéroe creado correctamente', 'Cerrar');
+          },
+          error: (error) => {
+            this.alertService.error('No se pudo eliminar el superhéroe', 'Cerrar');
+            console.error(error);
+          },
+        });
       }
     });
   }
@@ -69,7 +83,6 @@ export class SuperherosPageComponent implements OnInit {
     this.heroId.set(id);
     this.superheroStore.getSuperhero(id).subscribe({
       next: (data) => {
-        console.log('dataPage', data);
         this.superheroData.set(data);
         this.isEditHero.set(true);
       },
@@ -80,7 +93,6 @@ export class SuperherosPageComponent implements OnInit {
   }
 
   addHero(): void {
-    console.log(this.isAddHero());
     this.isAddHero.set(!this.isAddHero());
   }
   /*eslint-disable*/ //@ts-ignore
@@ -88,21 +100,20 @@ export class SuperherosPageComponent implements OnInit {
     console.log('Datos:', formData);
     this.superheroStore.createSuperhero(formData).subscribe({
       next: () => {
-        this.snackbar.open('Superhéroe creado correctamente', 'Cerrar', {
-          duration: 3000,
-        });
+        this.alertService.success('Superhéroe creado correctamente', 'Cerrar');
         this.formComponent.resetForm();
       },
       error: () => {
-        this.snackbar.open('No se pudo crear el superhéroe', 'Cerrar', {
-          duration: 3000,
-        });
+        this.alertService.error('No se pudo crear el superhéroe', 'Cerrar');
       },
     });
   }
 
+  updateSearchInput(event: string) {
+    this.superheroStore.searchInput.set(event);
+  }
+
   handleFormCancel() {
-    console.log('Cancelado');
     this.isAddHero.set(false);
     this.isEditHero.set(false);
   }

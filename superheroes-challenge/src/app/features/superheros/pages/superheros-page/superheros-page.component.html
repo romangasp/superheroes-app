@@ -1,30 +1,45 @@
 <div class="first-column"></div>
 <div class="list-container">
-
   <div class="superhero-header">
     <h2>Superheroes</h2>
-    <button mat-icon-button (click)="addHero()" [disabled]="this.isEditHero()"
-    [class.add-disabled]="this.isEditHero()">
+    <button
+      mat-icon-button
+      (click)="addHero()"
+      [disabled]="this.isEditHero()"
+      [class.add-disabled]="this.isEditHero()"
+    >
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
-  @if(superheroStore.loading()) {
+  <div class="input-search-container">
+    <app-input
+      [label]="'Buscar'"
+      [type]="'search'"
+      [placeholder]="'Spiderman'"
+      [control]="searchControl"
+      (searchInput)="updateSearchInput($event)"
+    >
+    </app-input>
+  </div>
+  @if (superheroStore.loading()) {
     <div class="page-spinner">
       <app-spinner></app-spinner>
       <p>Cargando Superheroes...</p>
     </div>
-  } @else {
+  } @else if (superheroStore.filteredSuperheros().length > 0) {
     <app-superheros-list
       class="delete-dialog"
-      [superherosList]="superheroStore.superheros()"
+      [superherosList]="superheroStore.filteredSuperheros()"
       (deleteAction)="openDeleteDialog($event)"
       (editAction)="openEditForm($event)"
     ></app-superheros-list>
+  } @else {
+    <app-empty-message></app-empty-message>
   }
 </div>
 
 <div class="edit-column">
-  @if(isAddHero() || isEditHero()){
+  @if (isAddHero() || isEditHero()) {
     <app-form
       [config]="formConfig"
       [data]="superheroData()"

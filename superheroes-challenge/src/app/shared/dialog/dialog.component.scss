@@ -3,34 +3,35 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 20px 0 20px;
-  background-color: #416285;
+  background-color: rgb(141, 228, 216);
   
   h4 {
     margin: 0;
     font-size: 14px;
-    color: rgb(2, 238, 255);
+    color: #1e1e2f;
   }
 
   .close-button {
     margin-left: auto;
-    color: rgb(2, 238, 255);
+    color: #1e1e2f;
   }
 }
 
 .dialog-body {
   padding: 20px 24px;
   min-width: 320px;
-  background-color: #416285;
-  color: rgb(2, 238, 255);
+  background-color: rgb(141, 228, 216);
+  color: #1e1e2f;
 }
 
 .dialog-footer {
   padding: 12px 24px 16px 24px;
   gap: 8px;
-  background-color: #416285;
+  background-color: rgb(141, 228, 216);
   
 
   button {
-    color: rgb(2, 238, 255);
+    color: #1e1e2f;
+    background-color: rgb(55, 240, 215) ;
   }
 }

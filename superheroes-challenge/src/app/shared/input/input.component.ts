@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,4 +15,10 @@ export class InputComponent {
   control = input.required<FormControl>();
   placeholder = input<string>();
   type = input<string>();
+  readonly searchInput = output<string>();
+
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchInput.emit(input.value);
+  }
 }

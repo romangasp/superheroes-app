@@ -1,6 +1,6 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { Superhero } from '../models/superhero.model';
-import { SuperheroService } from '../services/superhero.service';
+import { DeleteSuperheroResponse, SuperheroService } from '../services/superhero.service';
 import { catchError, finalize, Observable, tap, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -11,6 +11,14 @@ export class superheroStore {
   readonly error = signal<string | null>(null);
   readonly superheros = signal<Superhero[]>([]);
   readonly successMessage = signal<string | null>(null);
+  searchInput = signal<string>('');
+
+  readonly filteredSuperheros = computed(() => {
+    const input = this.searchInput().toLowerCase().trim();
+    if (!input) return this.superheros();
+
+    return this.superheros().filter((hero) => hero.name.toLowerCase().includes(input));
+  });
 
   loadSuperheros(): void {
     this.loading.set(true);
@@ -41,7 +49,6 @@ export class superheroStore {
   }
 
   createSuperhero(superhero: Superhero): Observable<Superhero> {
-    console.log('superhero', superhero);
     this.loading.set(true);
     this.error.set(null);
 
@@ -58,25 +65,21 @@ export class superheroStore {
     );
   }
 
-  deleteSuperhero(id: string): void {
+  deleteSuperhero(id: string): Observable<DeleteSuperheroResponse> {
     this.loading.set(true);
     this.error.set(null);
 
-    this.superheroService
-      .deleteSuperhero(id)
-      .pipe(finalize(() => this.loading.set(false)))
-      .subscribe({
-        next: (response) => {
-          this.superheros.update((superheros) =>
-            superheros.filter((superhero) => superhero.id !== id),
-          );
-
-          this.successMessage.set(response.message);
-        },
-        error: (error: string | null) => {
-          console.error(error);
-          this.error.set('Unable to delete superhero');
-        },
-      });
+    return this.superheroService.deleteSuperhero(id).pipe(
+      tap(() => {
+        this.superheros.update((superheros) =>
+          superheros.filter((superhero) => superhero.id !== id),
+        );
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.error.set(error.error.message ?? 'No se pudo eliminar el superheroe');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loading.set(false)),
+    );
   }
 }
