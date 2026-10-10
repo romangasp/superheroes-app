@@ -20,11 +20,4 @@ export class AlertService {
       panelClass: ['snackbar-error'],
     });
   }
-
-  // info(message: string, action: string): void {
-  //   this.snackBar.open(message, action, {
-  //     duration: 3000,
-  //     panelClass: ['snackbar-info'],
-  //   });
-  // }
 }
